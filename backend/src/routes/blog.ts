@@ -83,36 +83,57 @@ blogRouter.put('/', async (c) => {
 
 blogRouter.get('/bulk', async (c) => {
 	const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
-	}).$extends(withAccelerate());
-	
-	const posts = await prisma.post.findMany({});
-	return c.json(posts);
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+    const blogs = await prisma.post.findMany({
+        select: {
+            content: true,
+            title: true,
+            id: true,
+            author: {
+                select: {
+                    name: true
+                }
+            }
+        }
+    });
+
+    return c.json({
+        blogs
+    })
 })
 
 
 blogRouter.get('/:id', async (c) => {
-	const userId = c.get('userId');
-	const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
-	}).$extends(withAccelerate());
+	const id = c.req.param("id");
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
 
-	const body = await c.req.json();
-	const { success } = createPostInput.safeParse(body);
-	if (!success) {
-		c.status(400);
-		return c.json({ error: "invalid input" });
-	}
-
-	const post = await prisma.post.create({
-		data: {
-			title: body.title,
-			content: body.content,
-			authorId: userId
-		}
-	});
-	return c.json({
-		id: post.id
-	});
+    try {
+        const blog = await prisma.post.findFirst({
+            where: {
+                id: id
+            },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+    
+        return c.json({
+            blog
+        });
+    } catch(e) {
+        c.status(411); // 4
+        return c.json({
+            message: "Error while fetching blog post"
+        });
+    }
 })
-
