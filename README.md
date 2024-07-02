@@ -1,6 +1,6 @@
 # BlogVerse
 
-Welcome to BlogVerse! This project is an implementation of a blogging platform similar to Medium, using a modern tech stack. This README provides an overview of the project, the tech stack used, and instructions for setting up and running the project locally.
+Welcome to BlogVerse! This project is an implementation of a blogging platform using a modern tech stack. This README provides an overview of the project, the tech stack used, and instructions for setting up and running the project locally.
 
 ## Table of Contents
 
