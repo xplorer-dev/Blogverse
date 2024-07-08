@@ -2,18 +2,6 @@
 
 Welcome to BlogVerse! This project is an implementation of a blogging platform using a modern tech stack. This README provides an overview of the project, the tech stack used, and instructions for setting up and running the project locally.
 
-## Table of Contents
-
-1. [Tech Stack](#tech-stack)
-2. [Features](#features)
-3. [Prerequisites](#prerequisites)
-4. [Installation](#installation)
-5. [Configuration](#configuration)
-6. [Running the Project](#running-the-project)
-7. [Project Structure](#project-structure)
-8. [Contributing](#contributing)
-9. [License](#license)
-
 ## Tech Stack
 
 - **Frontend**: React
